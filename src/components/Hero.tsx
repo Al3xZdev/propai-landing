@@ -3,6 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef, useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 import { 
   FaWhatsapp, 
   FaFacebookF, 
@@ -17,6 +18,7 @@ export default function Hero({ onNavigate, isLocked }: { onNavigate: (section: s
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [contentParticles, setContentParticles] = useState<{ id: number; left: string; top: string; delay: string }[]>([]);
   const [bgParticles, setBgParticles] = useState<{ id: number; left: string; top: string; delay: string; duration: string }[]>([]);
+  const { t, language } = useLanguage();
 
   // Generate particles on client only
   useEffect(() => {
@@ -191,7 +193,7 @@ export default function Hero({ onNavigate, isLocked }: { onNavigate: (section: s
           {/* Badge - Smart Marketing for Real Estate */}
           <div className="inline-flex items-center gap-2 bg-[var(--accent-subtle)] border border-[var(--accent-border)] rounded-full px-4 py-2 mb-6">
             <span className="w-2 h-2 bg-[var(--cyan)] rounded-full animate-pulse"></span>
-            <span className="text-[var(--cyan)] text-sm font-medium">Marketing Inteligente con IA</span>
+            <span className="text-[var(--cyan)] text-sm font-medium">{language === "es" ? "Marketing Inteligente con IA" : "Smart Marketing with AI"}</span>
           </div>
           
           {/* Marquee */}
@@ -205,7 +207,7 @@ export default function Hero({ onNavigate, isLocked }: { onNavigate: (section: s
                   <span className="w-6 h-6 border border-[var(--text-primary)] rounded-full flex items-center justify-center text-xs">
                     →
                   </span>
-                  Ver contenido
+                  {language === "es" ? "Ver contenido" : "View content"}
                 </div>
               ))}
             </div>
@@ -213,30 +215,28 @@ export default function Hero({ onNavigate, isLocked }: { onNavigate: (section: s
 
           {/* Title */}
           <h1 className="hero-title font-display text-4xl lg:text-5xl font-bold leading-tight text-[var(--text-primary)] mb-6">
-            Multiplica tus<br />
-            <span className="text-[var(--cyan)]">ventas inmobiliarias</span>
+            {t('heroTitle')}<br />
+            <span className="text-[var(--cyan)]">{t('heroTitleHighlight')}</span>
           </h1>
           
           {/* Subtitle */}
           <p className="hero-subtitle text-[var(--text-secondary)] mb-8 leading-relaxed">
-            PropAI es la plataforma de{" "}
-            <span className="text-[var(--cyan)] font-medium">marketing automatizado</span>{" "}
-            que genera contenido con IA, programa publicaciones y gestiona tus leads.
+            {t('heroSubtitle')}
           </p>
           
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 mb-8">
             <div className="stat-card bg-[var(--accent-subtle)] border border-[var(--accent-border)] rounded-lg p-4">
               <div className="font-display text-2xl font-bold text-[var(--text-primary)]">80%</div>
-              <div className="text-xs text-[var(--text-secondary)] mt-1">menos tiempo</div>
+              <div className="text-xs text-[var(--text-secondary)] mt-1">{t('statsLessTime')}</div>
             </div>
             <div className="stat-card bg-[var(--accent-subtle)] border border-[var(--accent-border)] rounded-lg p-4">
               <div className="font-display text-2xl font-bold text-[var(--text-primary)]">40%</div>
-              <div className="text-xs text-[var(--text-secondary)] mt-1">más leads</div>
+              <div className="text-xs text-[var(--text-secondary)] mt-1">{t('statsMoreLeads')}</div>
             </div>
             <div className="stat-card bg-[var(--accent-subtle)] border border-[var(--accent-border)] rounded-lg p-4">
               <div className="font-display text-2xl font-bold text-[var(--text-primary)]">3x</div>
-              <div className="text-xs text-[var(--text-secondary)] mt-1">ROI</div>
+              <div className="text-xs text-[var(--text-secondary)] mt-1">{t('statsROI')}</div>
             </div>
           </div>
           
@@ -245,7 +245,7 @@ export default function Hero({ onNavigate, isLocked }: { onNavigate: (section: s
             className="cta-btn flex items-center gap-3 bg-[var(--accent)] text-[var(--bg-primary)] border-none rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wide hover:scale-105 transition-transform"
             onClick={() => onNavigate('contact')}
           >
-            Agendar Demo
+            {t('scheduleDemo')}
             <span className="w-7 h-7 bg-[var(--bg-primary)] rounded-full flex items-center justify-center text-[var(--accent)] text-sm">
               →
             </span>
@@ -338,7 +338,7 @@ export default function Hero({ onNavigate, isLocked }: { onNavigate: (section: s
             <div className="w-6 h-6 rounded-full border border-[var(--bg-primary)] bg-blue-400 text-[8px] flex items-center justify-center font-bold text-[var(--bg-primary)]">MR</div>
             <div className="w-6 h-6 rounded-full border border-[var(--bg-primary)] bg-purple-400 text-[8px] flex items-center justify-center font-bold text-[var(--bg-primary)]">+</div>
           </div>
-          +2,500 inmobiliarias
+          {t('badgeAgencies')}
         </div>
       </div>
 

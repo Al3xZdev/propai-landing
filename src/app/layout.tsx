@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Syne } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "./SmoothScroll";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -29,7 +30,9 @@ export default function RootLayout({
     <html lang="es" className={`${dmSans.variable} ${syne.variable} scroll-smooth`}>
       <body className="antialiased">
         <SmoothScroll>
-          {children}
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
         </SmoothScroll>
       </body>
     </html>

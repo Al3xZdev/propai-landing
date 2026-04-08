@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useEffect, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,6 +30,7 @@ export default function Features() {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const floatTweens = useRef<gsap.core.Tween[]>([]);
+  const { t, language } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -139,7 +141,7 @@ export default function Features() {
   return (
     <div ref={containerRef} className="p-7 bg-[var(--bg-primary)]">
       <h2 className="features-title font-display text-[28px] font-bold leading-[1.15] mb-6 max-w-[560px] text-[var(--text-primary)]">
-        La plataforma de automatización de marketing que transforma tu inmobiliaria
+        {language === "es" ? "La plataforma de automatización de marketing que transforma tu inmobiliaria" : "The marketing automation platform that transforms your real estate agency"}
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -151,10 +153,12 @@ export default function Features() {
           <div>
             <div className="text-[13px] font-semibold text-[var(--text-secondary)] mb-2.5">1.</div>
             <div className="font-display text-[20px] font-bold leading-[1.2] mb-3 text-[var(--text-primary)]">
-              Automatización Inteligente
+              {language === "es" ? "Automatización Inteligente" : "Intelligent Automation"}
             </div>
             <div className="text-[12px] leading-[1.7] text-[var(--text-secondary)]">
-              Deja que la IA gestione las tareas repetitivas: publicación automática en múltiples plataformas, generación de descripciones únicas y seguimiento de leads sin que tengas que mover un dedo.
+              {language === "es" 
+                ? "Deja que la IA gestione las tareas repetitivas: publicación automática en múltiples plataformas, generación de descripciones únicas y seguimiento de leads sin que tengas que mover un dedo."
+                : "Let AI handle repetitive tasks: automatic posting on multiple platforms, unique description generation, and lead tracking without lifting a finger."}
             </div>
           </div>
           <div className="w-9 h-9 border border-[var(--accent-border)] rounded-full flex items-center justify-center text-[14px] text-[var(--text-secondary)] mt-4 cursor-pointer hover:bg-[var(--accent-subtle)] transition-colors">
@@ -170,10 +174,12 @@ export default function Features() {
           >
             <div className="text-[13px] font-semibold text-[var(--text-secondary)] mb-2">2.</div>
             <div className="font-display text-[20px] font-bold leading-[1.2] text-[var(--text-primary)]">
-              Multiplica tu Productividad
+              {language === "es" ? "Multiplica tu Productividad" : "Multiply your Productivity"}
             </div>
             <div className="text-[12px] leading-[1.7] text-[var(--text-secondary)] mt-2">
-              De 3 horas por propiedad a solo 2 minutos. Libera hasta 20 horas semanales para enfocarte en cerrar ventas.
+              {language === "es" 
+                ? "De 3 horas por propiedad a solo 2 minutos. Libera hasta 20 horas semanales para enfocarte en cerrar ventas."
+                : "From 3 hours per property to just 2 minutes. Free up to 20 hours per week to focus on closing deals."}
             </div>
             <div className="w-9 h-9 border border-[var(--accent-border)] rounded-full flex items-center justify-center text-[14px] text-[var(--text-secondary)] mt-2 cursor-pointer hover:bg-[var(--accent-subtle)] transition-colors">
               →
@@ -186,10 +192,12 @@ export default function Features() {
           >
             <div className="text-[13px] font-semibold opacity-50 mb-2">3.</div>
             <div className="font-display text-[20px] font-bold leading-[1.2] mb-2 text-[var(--bg-primary)]">
-              No Intrusivo
+              {language === "es" ? "No Intrusivo" : "Non-intrusive"}
             </div>
             <div className="text-[12px] leading-[1.7] opacity-65 text-[var(--bg-primary)]">
-              No requiere cambios en sistemas existentes, facilitando la implementación.
+              {language === "es" 
+                ? "No requiere cambios en sistemas existentes, facilitando la implementación."
+                : "No changes to existing systems required, making implementation easy."}
             </div>
             <div className="w-9 h-9 border border-[var(--bg-primary)]/30 rounded-full flex items-center justify-center text-[14px] text-[var(--bg-primary)] mt-3 cursor-pointer hover:bg-[var(--bg-primary)]/10 transition-colors">
               →

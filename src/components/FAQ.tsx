@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +15,7 @@ interface FAQItem {
   icon?: string;
 }
 
-const faqs: FAQItem[] = [
+const faqsEs: FAQItem[] = [
   {
     question: "¿Cuánto tiempo tarda la implementación?",
     answer: "Generalmente 5-7 días hábiles. Configuramos todo, subimos tus propiedades existentes y capacitamos a tu equipo. Nos encargamos de la integración completa con tus plataformas actuales.",
@@ -42,10 +43,41 @@ const faqs: FAQItem[] = [
   },
 ];
 
+const faqsEn: FAQItem[] = [
+  {
+    question: "How long does implementation take?",
+    answer: "Usually 5-7 business days. We set everything up, upload your existing properties, and train your team. We handle the complete integration with your current platforms.",
+    icon: "⏱️",
+  },
+  {
+    question: "Do I need technical knowledge?",
+    answer: "No, not at all. We handle all the technical setup. You just need to provide photos and basic data for your properties. The AI does the rest automatically.",
+    icon: "🔧",
+  },
+  {
+    question: "What if I want to cancel?",
+    answer: "You can cancel anytime with 30 days notice. No penalties, hidden clauses, or forced commitment. Your data will always be yours.",
+    icon: "🛡️",
+  },
+  {
+    question: "Do social networks connect directly?",
+    answer: "Yes, we securely connect your Instagram, Facebook, and WhatsApp accounts. We use official APIs from each platform to guarantee the best reach.",
+    icon: "📱",
+  },
+  {
+    question: "Do you offer support in English?",
+    answer: "Of course! Our entire support team operates in English, available via email, live chat, and phone depending on your plan.",
+    icon: "💬",
+  },
+];
+
 export default function FAQ() {
   const containerRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isMounted, setIsMounted] = useState(false);
+  const { language } = useLanguage();
+
+  const faqs = language === "es" ? faqsEs : faqsEn;
 
   useEffect(() => {
     setIsMounted(true);
@@ -83,10 +115,10 @@ export default function FAQ() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="faq-section-title text-4xl md:text-5xl font-bold text-[var(--text-primary)] mb-4">
-            Preguntas Frecuentes
+            {language === "es" ? "Preguntas Frecuentes" : "Frequently Asked Questions"}
           </h2>
           <p className="text-[var(--cyan)] text-lg">
-            Todo lo que necesitas saber sobre PropAI
+            {language === "es" ? "Todo lo que necesitas saber sobre PropAI" : "Everything you need to know about PropAI"}
           </p>
         </div>
 

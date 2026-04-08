@@ -4,11 +4,13 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function CTA() {
   const containerRef = useRef<HTMLElement>(null);
+  const { language } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -60,7 +62,7 @@ export default function CTA() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    alert("¡Gracias! Nos pondremos en contacto contigo en las próximas 24h.");
+    alert(language === "es" ? "¡Gracias! Nos pondremos en contacto contigo en las próximas 24h." : "Thank you! We will contact you within the next 24 hours.");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -75,10 +77,10 @@ export default function CTA() {
       <div className="max-w-3xl mx-auto">
         <div className="cta-title text-center mb-8">
           <h2 className="font-display text-[36px] md:text-[48px] font-bold text-[var(--text-primary)] mb-4">
-            ¿Listo para transformar tu marketing?
+            {language === "es" ? "¿Listo para transformar tu marketing?" : "Ready to transform your marketing?"}
           </h2>
           <p className="text-[16px] text-[var(--text-secondary)]">
-            Agenda una demo personalizada sin compromiso
+            {language === "es" ? "Agenda una demo personalizada sin compromiso" : "Schedule a personalized demo with no obligation"}
           </p>
         </div>
 
@@ -89,13 +91,13 @@ export default function CTA() {
           <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div>
               <label className="block text-[var(--text-primary)] mb-2 font-medium text-[14px]">
-                Nombre completo *
+                {language === "es" ? "Nombre completo *" : "Full name *"}
               </label>
               <input
                 type="text"
                 name="name"
                 required
-                placeholder="Tu nombre"
+                placeholder={language === "es" ? "Tu nombre" : "Your name"}
                 value={formData.name}
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-[10px] bg-[var(--accent-subtle)] border border-[var(--accent-border)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--cyan)] focus:shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all duration-300"
@@ -103,13 +105,13 @@ export default function CTA() {
             </div>
             <div>
               <label className="block text-[var(--text-primary)] mb-2 font-medium text-[14px]">
-                Nombre de tu inmobiliaria *
+                {language === "es" ? "Nombre de tu inmobiliaria *" : "Your agency name *"}
               </label>
               <input
                 type="text"
                 name="company"
                 required
-                placeholder="Tu empresa"
+                placeholder={language === "es" ? "Tu empresa" : "Your company"}
                 value={formData.company}
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-[10px] bg-[var(--accent-subtle)] border border-[var(--accent-border)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--cyan)] focus:shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all duration-300"
@@ -119,7 +121,7 @@ export default function CTA() {
           <div className="grid md:grid-cols-2 gap-6 mb-6">
             <div>
               <label className="block text-[var(--text-primary)] mb-2 font-medium text-[14px]">
-                Email profesional *
+                {language === "es" ? "Email profesional *" : "Professional email *"}
               </label>
               <input
                 type="email"
@@ -133,7 +135,7 @@ export default function CTA() {
             </div>
             <div>
               <label className="block text-[var(--text-primary)] mb-2 font-medium text-[14px]">
-                Teléfono (WhatsApp)
+                {language === "es" ? "Teléfono (WhatsApp)" : "Phone (WhatsApp)"}
               </label>
               <input
                 type="tel"
@@ -147,7 +149,7 @@ export default function CTA() {
           </div>
           <div className="mb-6">
             <label className="block text-[var(--text-primary)] mb-2 font-medium text-[14px]">
-              ¿Cuántas propiedades manejan al mes?
+              {language === "es" ? "¿Cuántas propiedades manejan al mes?" : "How many properties do you manage per month?"}
             </label>
             <select
               name="properties"
@@ -155,26 +157,26 @@ export default function CTA() {
               onChange={handleChange}
               className="w-full px-4 py-3 rounded-[10px] bg-[var(--accent-subtle)] border border-[var(--accent-border)] text-[var(--text-primary)] focus:outline-none focus:border-[var(--cyan)] focus:shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all duration-300"
             >
-              <option value="" className="text-[var(--bg-primary)]">Selecciona...</option>
-              <option value="1-5" className="text-[var(--bg-primary)]">1-5 propiedades</option>
-              <option value="6-20" className="text-[var(--bg-primary)]">6-20 propiedades</option>
-              <option value="21-50" className="text-[var(--bg-primary)]">21-50 propiedades</option>
-              <option value="50+" className="text-[var(--bg-primary)]">50+ propiedades</option>
+              <option value="" className="text-[var(--bg-primary)]">{language === "es" ? "Selecciona..." : "Select..."}</option>
+              <option value="1-5" className="text-[var(--bg-primary)]">{language === "es" ? "1-5 propiedades" : "1-5 properties"}</option>
+              <option value="6-20" className="text-[var(--bg-primary)]">{language === "es" ? "6-20 propiedades" : "6-20 properties"}</option>
+              <option value="21-50" className="text-[var(--bg-primary)]">{language === "es" ? "21-50 propiedades" : "21-50 properties"}</option>
+              <option value="50+" className="text-[var(--bg-primary)]">{language === "es" ? "50+ propiedades" : "50+ properties"}</option>
             </select>
           </div>
           <button
             type="submit"
             className="w-full py-4 bg-[var(--accent)] text-[var(--bg-primary)] rounded-[10px] font-semibold text-[16px] hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(6,182,212,0.4)] transition-all duration-300"
           >
-            Agendar Demo Personalizada
+            {language === "es" ? "Agendar Demo Personalizada" : "Schedule Personalized Demo"}
           </button>
           <p className="text-center text-[var(--text-secondary)] text-[12px] mt-4">
-            * Nos pondremos en contacto contigo en las próximas 24h
+            {language === "es" ? "* Nos pondremos en contacto contigo en las próximas 24h" : "* We will contact you within the next 24 hours"}
           </p>
         </form>
 
         <div className="cta-contact mt-12 text-center">
-          <p className="text-[var(--text-secondary)]">O escríbenos directamente:</p>
+          <p className="text-[var(--text-secondary)]">{language === "es" ? "O escríbenos directamente:" : "Or write us directly:"}</p>
           <p className="text-[var(--cyan)] text-[18px] hover:underline cursor-pointer">hola@propai.com</p>
         </div>
       </div>

@@ -4,57 +4,107 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const plans = [
-  {
-    name: "Starter",
-    description: "Para inmobiliarias pequeñas",
-    features: [
-      "25 propiedades/año",
-      "1 usuario",
-      "2 plataformas",
-      "50 generaciones IA/mes",
-      "Email soporte",
-      "1 hora capacitación",
-      "Analytics básico",
-    ],
-    highlighted: false,
-  },
-  {
-    name: "Professional",
-    description: "Para inmobiliarias en crecimiento",
-    features: [
-      "100 propiedades/año",
-      "5 usuarios",
-      "5 plataformas",
-      "200 generaciones IA/mes",
-      "Email + Chat soporte",
-      "3 horas capacitación",
-      "Analytics avanzado",
-    ],
-    highlighted: false,
-  },
-  {
-    name: "Enterprise",
-    description: "Para inmobiliarias grandes",
-    features: [
-      "Propiedades ilimitadas",
-      "20 usuarios",
-      "Todas las plataformas",
-      "IA ilimitada",
-      "Soporte priority 24/7",
-      "Capacitación ilimitada",
-      "Analytics completo",
-      "API access",
-    ],
-    highlighted: true,
-  },
-];
-
 export default function Pricing() {
   const containerRef = useRef<HTMLElement>(null);
+  const { t, language } = useLanguage();
+
+  const plansEs = [
+    {
+      name: "Starter",
+      description: "Para inmobiliarias pequeñas",
+      features: [
+        "25 propiedades/año",
+        "1 usuario",
+        "2 plataformas",
+        "50 generaciones IA/mes",
+        "Email soporte",
+        "1 hora capacitación",
+        "Analytics básico",
+      ],
+      highlighted: false,
+    },
+    {
+      name: "Professional",
+      description: "Para inmobiliarias en crecimiento",
+      features: [
+        "100 propiedades/año",
+        "5 usuarios",
+        "5 plataformas",
+        "200 generaciones IA/mes",
+        "Email + Chat soporte",
+        "3 horas capacitación",
+        "Analytics avanzado",
+      ],
+      highlighted: false,
+    },
+    {
+      name: "Enterprise",
+      description: "Para inmobiliarias grandes",
+      features: [
+        "Propiedades ilimitadas",
+        "20 usuarios",
+        "Todas las plataformas",
+        "IA ilimitada",
+        "Soporte priority 24/7",
+        "Capacitación ilimitada",
+        "Analytics completo",
+        "API access",
+      ],
+      highlighted: true,
+    },
+  ];
+
+  const plansEn = [
+    {
+      name: "Starter",
+      description: "For small agencies",
+      features: [
+        "25 properties/year",
+        "1 user",
+        "2 platforms",
+        "50 AI generations/month",
+        "Email support",
+        "1 hour training",
+        "Basic analytics",
+      ],
+      highlighted: false,
+    },
+    {
+      name: "Professional",
+      description: "For growing agencies",
+      features: [
+        "100 properties/year",
+        "5 users",
+        "5 platforms",
+        "200 AI generations/month",
+        "Email + Chat support",
+        "3 hours training",
+        "Advanced analytics",
+      ],
+      highlighted: false,
+    },
+    {
+      name: "Enterprise",
+      description: "For large agencies",
+      features: [
+        "Unlimited properties",
+        "20 users",
+        "All platforms",
+        "Unlimited AI",
+        "Priority support 24/7",
+        "Unlimited training",
+        "Full analytics",
+        "API access",
+      ],
+      highlighted: true,
+    },
+  ];
+
+  const plans = language === "es" ? plansEs : plansEn;
 
   useGSAP(() => {
     gsap.from(".pricing-title", {
@@ -93,10 +143,10 @@ export default function Pricing() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="pricing-title text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">
-            Planes para cada tamaño
+            {language === "es" ? "Planes para cada tamaño" : "Plans for every size"}
           </h2>
           <p className="text-[var(--text-secondary)]">
-            Elige el plan que mejor se adapte a tus necesidades
+            {language === "es" ? "Elige el plan que mejor se adapte a tus necesidades" : "Choose the plan that best fits your needs"}
           </p>
         </div>
 
@@ -113,7 +163,7 @@ export default function Pricing() {
               {plan.highlighted && (
                 <div className="text-center mb-4">
                   <span className="inline-block bg-[var(--cyan)] text-[var(--bg-primary)] text-xs font-bold px-3 py-1 rounded-full">
-                    MÁS POPULAR
+                    {language === "es" ? "MÁS POPULAR" : "MOST POPULAR"}
                   </span>
                 </div>
               )}
@@ -137,7 +187,7 @@ export default function Pricing() {
                     : "bg-[var(--accent-subtle)] text-[var(--text-primary)] hover:bg-[var(--accent-subtle)]/50"
                 }`}
               >
-                Contactar
+                {language === "es" ? "Contactar" : "Contact"}
               </button>
             </div>
           ))}
