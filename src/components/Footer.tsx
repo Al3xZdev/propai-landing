@@ -3,9 +3,11 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
   const containerRef = useRef<HTMLElement>(null);
+  const { language } = useLanguage();
 
   useGSAP(() => {
     gsap.from("footer", {
@@ -25,9 +27,11 @@ export default function Footer() {
           </div>
           <span className="text-[24px] font-bold text-[var(--text-primary)]">PropAI</span>
         </div>
-        <p className="text-[14px] text-[var(--text-secondary)] mb-2">Marketing Inteligente para Inmobiliarias</p>
+        <p className="text-[14px] text-[var(--text-secondary)] mb-2">
+          {language === "es" ? "Marketing Inteligente para Inmobiliarias" : "Smart Marketing for Real Estate Agencies"}
+        </p>
         <p className="text-[12px] text-[var(--text-muted)]">
-          © 2025 PropAI. Todos los derechos reservados.
+          © 2026 PropAI. {language === "es" ? "Todos los derechos reservados." : "All rights reserved."}
         </p>
       </div>
     </footer>
