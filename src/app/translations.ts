@@ -127,7 +127,7 @@ export const translations = {
     // CTA
     ctaTitle: "¿Listo para transformar tu marketing?",
     ctaSubtitle: "Agendá una demo y descubrí cómo PropAI puede multiplicar tus ventas.",
-    scheduleDemo: "Agendar Demo",
+    ctaButtonText: "Agendar Demo",
     
     // Guarantee
     guaranteeTitle: "Garantía de satisfacción",
@@ -266,7 +266,7 @@ export const translations = {
     // CTA
     ctaTitle: "Ready to transform your marketing?",
     ctaSubtitle: "Schedule a demo and discover how PropAI can multiply your sales.",
-    scheduleDemo: "Schedule Demo",
+    ctaButtonText: "Schedule Demo",
     
     // Guarantee
     guaranteeTitle: "Satisfaction guarantee",
