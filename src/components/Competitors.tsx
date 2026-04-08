@@ -102,25 +102,6 @@ export default function Competitors() {
   const containerRef = useRef<HTMLElement>(null);
   const { language } = useLanguage();
   const competitors = language === "es" ? competitorsEs : competitorsEn;
-  },
-  {
-    feature: "Cronograma automático",
-    propAI: { value: true, highlight: true },
-    buffer: { value: "Básico" },
-    hootsuite: { value: "Básico" },
-    agencia: { value: false },
-  },
-  {
-    feature: "En español",
-    propAI: { value: true, highlight: true },
-    buffer: { value: false },
-    hootsuite: { value: false },
-    agencia: { value: "Parcial" },
-  },
-];
-
-export default function Competitors() {
-  const containerRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
     gsap.from(".comp-title", {
