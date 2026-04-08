@@ -3,7 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -73,15 +73,10 @@ const faqsEn: FAQItem[] = [
 
 export default function FAQ() {
   const containerRef = useRef<HTMLElement>(null);
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const [isMounted, setIsMounted] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
   const { language } = useLanguage();
 
   const faqs = language === "es" ? faqsEs : faqsEn;
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useGSAP(() => {
     gsap.from(".faq-section-title", {
@@ -122,90 +117,65 @@ export default function FAQ() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* LEFT - Questions List */}
-          <div className="faq-list-container space-y-3">
-            {faqs.map((faq, index) => (
+        {/* FAQ Accordion - Each answer expands below its question */}
+        <div className="max-w-3xl mx-auto space-y-3">
+          {faqs.map((faq, index) => (
+            <motion.div
+              key={index}
+              className={`faq-list-item rounded-xl overflow-hidden transition-all duration-300 ${
+                activeIndex === index
+                  ? "bg-[var(--bg-tertiary)] border border-[var(--cyan)]"
+                  : "bg-[var(--bg-tertiary)] border border-[var(--accent-border)]"
+              }`}
+              initial={false}
+              animate={{
+                backgroundColor: activeIndex === index ? "rgba(30, 41, 59, 1)" : "rgba(30, 41, 59, 1)"
+              }}
+            >
+              {/* Question - Clickable */}
               <motion.button
-                key={index}
-                onClick={() => setActiveIndex(index)}
-                className={`faq-list-item w-full text-left p-5 rounded-xl transition-all duration-300 relative overflow-hidden ${
-                  activeIndex === index
-                    ? "bg-gradient-to-r from-cyan-600/80 to-blue-600/80 shadow-[0_0_30px_rgba(6,182,212,0.3)]"
-                    : "bg-[var(--bg-tertiary)] border border-[var(--accent-border)] hover:bg-[var(--accent-subtle)] hover:border-[var(--cyan)]/50"
-                }`}
+                onClick={() => setActiveIndex(activeIndex === index ? -1 : index)}
+                className="w-full text-left p-5 flex items-center justify-between"
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
               >
-                {/* Active glow background */}
-                {activeIndex === index && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 animate-pulse" />
-                )}
-                
-                <div className="relative flex items-center justify-between">
-                  <span className="text-2xl mr-3">{faq.icon}</span>
-                  <span className={`flex-1 font-semibold text-base ${
-                    activeIndex === index ? "text-white" : "text-[var(--text-primary)]"
+                <div className="flex items-center gap-3 flex-1">
+                  <span className="text-2xl">{faq.icon}</span>
+                  <span className={`font-semibold text-base ${
+                    activeIndex === index ? "text-[var(--cyan)]" : "text-[var(--text-primary)]"
                   }`}>
                     {faq.question}
                   </span>
-                  <motion.span
-                    animate={{ rotate: activeIndex === index ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className={`text-xl ${activeIndex === index ? "text-cyan-400" : "text-[var(--text-muted)]"}`}
-                  >
-                    ▼
-                  </motion.span>
                 </div>
+                <motion.span
+                  animate={{ rotate: activeIndex === index ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className={`text-xl ${activeIndex === index ? "text-[var(--cyan)]" : "text-[var(--text-muted)]"}`}
+                >
+                  ▼
+                </motion.span>
               </motion.button>
-            ))}
-          </div>
 
-          {/* RIGHT - Dynamic Panel */}
-          <div className="relative">
-            {/* Glassmorphism panel */}
-            <div className="sticky top-24">
-              <div className="bg-[var(--bg-tertiary)]/50 backdrop-blur-xl border border-[var(--accent-border)] rounded-2xl p-8 min-h-[300px]">
-                <AnimatePresence mode="wait">
-                  {isMounted && (
-                    <motion.div
-                      key={activeIndex}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3, ease: "easeOut" }}
-                    >
-                      {/* Icon */}
-                      <div className="text-5xl mb-6">
-                        {faqs[activeIndex].icon}
-                      </div>
-                      
-                      {/* Question */}
-                      <h3 className="text-2xl font-bold text-[var(--text-primary)] mb-4">
-                        {faqs[activeIndex].question}
-                      </h3>
-                      
-                      {/* Answer */}
-                      <p className="text-[var(--text-secondary)] leading-relaxed text-lg">
-                        {faqs[activeIndex].answer}
+              {/* Answer - Expands below question */}
+              <AnimatePresence>
+                {activeIndex === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-5 pb-5 pl-14">
+                      <p className="text-[var(--text-secondary)] leading-relaxed">
+                        {faq.answer}
                       </p>
-
-                      {/* Decorative elements */}
-                      <div className="mt-8 flex items-center gap-2">
-                        <div className="h-1 w-12 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full" />
-                        <span className="text-xs text-[var(--text-muted)]">
-                          PropAI FAQ
-                        </span>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Glow effect behind panel */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 via-blue-500/10 to-cyan-500/20 rounded-3xl blur-2xl -z-10" />
-            </div>
-          </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

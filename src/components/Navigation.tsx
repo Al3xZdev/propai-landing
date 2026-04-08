@@ -34,19 +34,19 @@ export default function Navigation({ onNavigate }: { onNavigate: (section: strin
       </div>
       
       {/* CTA & Language Toggle */}
-      <div className="flex items-center gap-3">
-        {/* Language Toggle */}
+      <div className="flex items-center gap-2 md:gap-3">
+        {/* Language Toggle - visible on all screens */}
         <button 
-          className="flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium text-[var(--text-secondary)] border border-[var(--accent-border)] hover:border-[var(--accent)] hover:text-[var(--text-primary)] transition-colors"
+          className="flex items-center gap-1.5 md:gap-2 px-2.5 md:px-3 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium text-[var(--text-secondary)] border border-[var(--accent-border)] hover:border-[var(--accent)] hover:text-[var(--text-primary)] transition-colors"
           onClick={toggleLanguage}
         >
           <span className="text-xs">{language === "es" ? "🇦🇷" : "🇺🇸"}</span>
-          <span className="uppercase">{language}</span>
+          <span className="uppercase hidden sm:inline">{language}</span>
         </button>
         
         {/* Schedule Demo Button */}
         <button 
-          className="bg-[var(--accent)] text-[var(--bg-primary)] px-5 py-2 rounded-full text-sm font-semibold hover:bg-[var(--accent-hover)] transition-colors"
+          className="bg-[var(--accent)] text-[var(--bg-primary)] px-3 md:px-5 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-semibold hover:bg-[var(--accent-hover)] transition-colors"
           onClick={() => onNavigate('contact')}
         >
           {t('scheduleDemo')}
