@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,6 +27,7 @@ const platformTemplates = {
 
 export default function DemoPreview() {
   const containerRef = useRef<HTMLElement>(null);
+  const { language } = useLanguage();
   const [property, setProperty] = useState({
     address: '',
     price: '',
@@ -66,7 +68,7 @@ export default function DemoPreview() {
 
   const handleGenerate = () => {
     if (!property.address || !property.price) {
-      alert("Por favor ingresa al menos la dirección y el precio");
+      alert(language === "es" ? "Por favor ingresa al menos la dirección y el precio" : "Please enter at least the address and price");
       return;
     }
 
@@ -105,33 +107,39 @@ export default function DemoPreview() {
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="demo-title text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">
-            Pruébalo gratis
+            {language === "es" ? "Pruébalo gratis" : "Try it for free"}
           </h2>
           <p className="text-[var(--text-secondary)]">
-            Genera contenido con IA en segundos
+            {language === "es" ? "Genera contenido con IA en segundos" : "Generate AI content in seconds"}
           </p>
         </div>
 
         <div className="demo-content grid md:grid-cols-2 gap-8">
           {/* LEFT - Input Form */}
           <div className="bg-[var(--bg-tertiary)] border border-[var(--accent-border)] rounded-2xl p-6">
-            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-4">Datos de la propiedad</h3>
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-4">
+              {language === "es" ? "Datos de la propiedad" : "Property Details"}
+            </h3>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm text-[var(--text-secondary)] mb-1">Dirección *</label>
+                <label className="block text-sm text-[var(--text-secondary)] mb-1">
+                  {language === "es" ? "Dirección *" : "Address *"}
+                </label>
                 <input
                   type="text"
                   value={property.address}
                   onChange={(e) => setProperty({...property, address: e.target.value})}
-                  placeholder="Av. Principal 123, Buenos Aires"
+                  placeholder={language === "es" ? "Av. Principal 123, Buenos Aires" : "123 Main St, New York"}
                   className="w-full px-4 py-2 rounded-lg bg-[var(--bg-primary)] border border-[var(--accent-border)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--cyan)]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-[var(--text-secondary)] mb-1">Precio (USD) *</label>
+                  <label className="block text-sm text-[var(--text-secondary)] mb-1">
+                    {language === "es" ? "Precio (USD) *" : "Price (USD) *"}
+                  </label>
                   <input
                     type="text"
                     value={property.price}
@@ -141,7 +149,9 @@ export default function DemoPreview() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-[var(--text-secondary)] mb-1">Superficie (m²)</label>
+                  <label className="block text-sm text-[var(--text-secondary)] mb-1">
+                    {language === "es" ? "Superficie (m²)" : "Area (sq ft)"}
+                  </label>
                   <input
                     type="text"
                     value={property.area}
@@ -164,7 +174,21 @@ export default function DemoPreview() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-[var(--text-secondary)] mb-1">Baños</label>
+                  <label className="block text-sm text-[var(--text-secondary)] mb-1">
+                    {language === "es" ? "Dormitorios" : "Bedrooms"}
+                  </label>
+                  <input
+                    type="text"
+                    value={property.bedrooms}
+                    onChange={(e) => setProperty({...property, bedrooms: e.target.value})}
+                    placeholder="3"
+                    className="w-full px-4 py-2 rounded-lg bg-[var(--bg-primary)] border border-[var(--accent-border)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--cyan)]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm text-[var(--text-secondary)] mb-1">
+                    {language === "es" ? "Baños" : "Bathrooms"}
+                  </label>
                   <input
                     type="text"
                     value={property.bathrooms}
@@ -176,7 +200,9 @@ export default function DemoPreview() {
               </div>
 
               <div>
-                <label className="block text-sm text-[var(--text-secondary)] mb-2">Plataforma</label>
+                <label className="block text-sm text-[var(--text-secondary)] mb-2">
+                  {language === "es" ? "Plataforma" : "Platform"}
+                </label>
                 <div className="flex gap-2">
                   {['instagram', 'facebook', 'email'].map((platform) => (
                     <button
@@ -201,30 +227,36 @@ export default function DemoPreview() {
               >
                 {isGenerating ? (
                   <span className="flex items-center justify-center gap-2">
-                    <span className="animate-spin">⏳</span> Generando con IA...
+                    <span className="animate-spin">⏳</span> {language === "es" ? "Generando con IA..." : "Generating with AI..."}
                   </span>
                 ) : (
-                  "✨ Generar con IA"
+                  language === "es" ? "✨ Generar con IA" : "✨ Generate with AI"
                 )}
               </button>
 
               <p className="text-xs text-[var(--text-muted)] text-center mt-3">
-                Esta es una versión de prueba simplificada. 
+                {language === "es" 
+                  ? "Esta es una versión de prueba simplificada." 
+                  : "This is a simplified trial version."}
                 <br />
                 <button 
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                   className="text-[var(--cyan)] underline hover:no-underline"
                 >
-                  Agendá una demo
+                  {language === "es" ? "Agendá una demo" : "Schedule a demo"}
                 </button>{" "}
-                para ver la versión completa con todas las funcionalidades.
+                {language === "es" 
+                  ? "para ver la versión completa con todas las funcionalidades."
+                  : "to see the full version with all features."}
               </p>
             </div>
           </div>
 
           {/* RIGHT - Generated Content */}
           <div className="bg-[var(--bg-tertiary)] border border-[var(--accent-border)] rounded-2xl p-6 flex flex-col">
-            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-4">Contenido generado</h3>
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-4">
+              {language === "es" ? "Contenido generado" : "Generated Content"}
+            </h3>
             
             <div className="flex-1 flex items-center justify-center">
               <AnimatePresence mode="wait">

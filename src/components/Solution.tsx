@@ -4,25 +4,43 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const features = [
+const featuresEs = [
   { icon: "🤖", title: "IA Generativa", description: "Descripciones, copies y emails en segundos" },
   { icon: "📅", title: "Auto-Publicación", description: "Programa y olvida en IG, FB, TikTok" },
   { icon: "👥", title: "Gestión Leads", description: "Sequences automatizados" },
   { icon: "📊", title: "Analytics", description: "Métricas reales de rendimiento" },
 ];
 
-const timeline = [
+const featuresEn = [
+  { icon: "🤖", title: "Generative AI", description: "Descriptions, copy, and emails in seconds" },
+  { icon: "📅", title: "Auto-Publishing", description: "Schedule and forget on IG, FB, TikTok" },
+  { icon: "👥", title: "Lead Management", description: "Automated sequences" },
+  { icon: "📊", title: "Analytics", description: "Real performance metrics" },
+];
+
+const timelineEs = [
   { day: "Día 1", event: "Fotos + Just Listed" },
   { day: "Día 3", event: "Video / Reel" },
   { day: "Día 5", event: "Open House" },
   { day: "Día 10", event: "Price Update" },
 ];
 
+const timelineEn = [
+  { day: "Day 1", event: "Photos + Just Listed" },
+  { day: "Day 3", event: "Video / Reel" },
+  { day: "Day 5", event: "Open House" },
+  { day: "Day 10", event: "Price Update" },
+];
+
 export default function Solution() {
   const containerRef = useRef<HTMLElement>(null);
+  const { language } = useLanguage();
+  const features = language === "es" ? featuresEs : featuresEn;
+  const timeline = language === "es" ? timelineEs : timelineEn;
 
   useGSAP(() => {
     // Title
@@ -95,10 +113,12 @@ export default function Solution() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="solution-title font-display text-4xl md:text-5xl font-bold text-white mb-4">
-            La Solución
+            {language === "es" ? "La Solución" : "The Solution"}
           </h2>
           <p className="text-lg text-[var(--text-secondary)]">
-            Todo tu marketing inmobiliario en una sola plataforma
+            {language === "es" 
+              ? "Todo tu marketing inmobiliario en una sola plataforma"
+              : "All your real estate marketing in one platform"}
           </p>
         </div>
 
@@ -123,7 +143,7 @@ export default function Solution() {
         {/* Timeline */}
         <div className="timeline-box glass rounded-2xl p-8">
           <h3 className="text-xl font-bold text-white text-center mb-8">
-            Cronograma Automático
+            {language === "es" ? "Cronograma Automático" : "Automatic Schedule"}
           </h3>
           <div className="flex flex-wrap justify-center items-center gap-4">
             {timeline.map((item, index) => (

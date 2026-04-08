@@ -4,18 +4,28 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const problems = [
+const problemsEs = [
   { icon: "⏱️", title: "3+ horas por propiedad", description: "Crear descripciones, copies y diseñar publicaciones para cada propiedad consume casi medio día de trabajo." },
   { icon: "📱", title: "Multiplicidad de plataformas", description: "Instagram, Facebook, TikTok, Twitter, portales... cada uno requiere contenido diferente y tiempo de publicación." },
   { icon: "😴", title: "Leads perdidos", description: "Sin seguimiento automatizado, el 80% de los potenciales clientes se van con la competencia." },
   { icon: "💸", title: "ROI negativo", description: "Inviertes en marketing pero no sabes qué funciona porque no hay analytics claro." },
 ];
 
+const problemsEn = [
+  { icon: "⏱️", title: "3+ hours per property", description: "Creating descriptions, copy, and designing posts for each property takes almost half a day of work." },
+  { icon: "📱", title: "Multiple platforms", description: "Instagram, Facebook, TikTok, Twitter, portals... each requires different content and posting time." },
+  { icon: "😴", title: "Lost leads", description: "Without automated follow-up, 80% of potential customers go to the competition." },
+  { icon: "💸", title: "Negative ROI", description: "You invest in marketing but don't know what works because there's no clear analytics." },
+];
+
 export default function Problem() {
   const containerRef = useRef<HTMLElement>(null);
+  const { language } = useLanguage();
+  const problems = language === "es" ? problemsEs : problemsEn;
 
   useGSAP(() => {
     // Title animation
@@ -55,10 +65,12 @@ export default function Problem() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="problem-title font-display text-4xl md:text-5xl font-bold text-white mb-4">
-            El Problema
+            {language === "es" ? "El Problema" : "The Problem"}
           </h2>
           <p className="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
-            El marketing inmobiliario actual es ineficiente y consume tiempo valioso
+            {language === "es" 
+              ? "El marketing inmobiliario actual es ineficiente y consume tiempo valioso"
+              : "Current real estate marketing is inefficient and consumes valuable time"}
           </p>
         </div>
 

@@ -4,10 +4,11 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const competitors = [
+const competitorsEs = [
   {
     feature: "IA para generar contenido",
     propAI: { value: true, highlight: true },
@@ -28,6 +29,79 @@ const competitors = [
     buffer: { value: false },
     hootsuite: { value: "Parcial" },
     agencia: { value: "+$" },
+  },
+  {
+    feature: "Publicación automática",
+    propAI: { value: true, highlight: true },
+    buffer: { value: true },
+    hootsuite: { value: true },
+    agencia: { value: "+$" },
+  },
+  {
+    feature: "Analytics avanzado",
+    propAI: { value: true, highlight: true },
+    buffer: { value: "Parcial" },
+    hootsuite: { value: true },
+    agencia: { value: "+$" },
+  },
+  {
+    feature: "Soporte en Español",
+    propAI: { value: true, highlight: true },
+    buffer: { value: false },
+    hootsuite: { value: false },
+    agencia: { value: true },
+  },
+];
+
+const competitorsEn = [
+  {
+    feature: "AI content generation",
+    propAI: { value: true, highlight: true },
+    buffer: { value: false },
+    hootsuite: { value: false },
+    agencia: { value: "Partial" },
+  },
+  {
+    feature: "Specialized in Real Estate",
+    propAI: { value: true, highlight: true },
+    buffer: { value: false },
+    hootsuite: { value: false },
+    agencia: { value: "Partial" },
+  },
+  {
+    feature: "Integrated Lead Management",
+    propAI: { value: true, highlight: true },
+    buffer: { value: false },
+    hootsuite: { value: "Partial" },
+    agencia: { value: "+$" },
+  },
+  {
+    feature: "Automatic publishing",
+    propAI: { value: true, highlight: true },
+    buffer: { value: true },
+    hootsuite: { value: true },
+    agencia: { value: "+$" },
+  },
+  {
+    feature: "Advanced analytics",
+    propAI: { value: true, highlight: true },
+    buffer: { value: "Partial" },
+    hootsuite: { value: true },
+    agencia: { value: "+$" },
+  },
+  {
+    feature: "Spanish Support",
+    propAI: { value: true, highlight: true },
+    buffer: { value: false },
+    hootsuite: { value: false },
+    agencia: { value: true },
+  },
+];
+
+export default function Competitors() {
+  const containerRef = useRef<HTMLElement>(null);
+  const { language } = useLanguage();
+  const competitors = language === "es" ? competitorsEs : competitorsEn;
   },
   {
     feature: "Cronograma automático",
@@ -91,10 +165,10 @@ export default function Competitors() {
       <div className="max-w-6xl mx-auto">
         <div className="comp-title text-center mb-12">
           <h2 className="font-display text-[36px] md:text-[48px] font-bold text-[var(--text-primary)] mb-4">
-            ¿Por qué PropAI?
+            {language === "es" ? "¿Por qué PropAI?" : "Why PropAI?"}
           </h2>
           <p className="text-[18px] text-[var(--text-secondary)]">
-            Comparación con otras soluciones del mercado
+            {language === "es" ? "Comparación con otras soluciones del mercado" : "Comparison with other market solutions"}
           </p>
         </div>
 

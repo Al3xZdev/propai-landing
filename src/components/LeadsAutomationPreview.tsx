@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,7 +18,7 @@ interface Lead {
   stage: string;
 }
 
-const sampleLeads: Lead[] = [
+const sampleLeadsEs: Lead[] = [
   { id: 1, name: "Juan Pérez", email: "juan@email.com", phone: "+54 9 11 1234 5678", status: 'new', stage: 'sin contactar' },
   { id: 2, name: "María García", email: "maria@email.com", phone: "+54 9 11 2345 6789", status: 'contacted', stage: 'primer contacto' },
   { id: 3, name: "Carlos López", email: "carlos@email.com", phone: "+54 9 11 3456 7890", status: 'qualified', stage: 'interesado' },
@@ -25,19 +26,36 @@ const sampleLeads: Lead[] = [
   { id: 5, name: "Pedro Rodríguez", email: "pedro@email.com", phone: "+54 9 11 5678 9012", status: 'converted', stage: 'cerrado' },
 ];
 
-const sequences = [
+const sampleLeadsEn: Lead[] = [
+  { id: 1, name: "John Smith", email: "john@email.com", phone: "+1 234 567 8901", status: 'new', stage: 'not contacted' },
+  { id: 2, name: "Mary Johnson", email: "mary@email.com", phone: "+1 234 567 8902", status: 'contacted', stage: 'first contact' },
+  { id: 3, name: "Carlos Lopez", email: "carlos@email.com", phone: "+1 234 567 8903", status: 'qualified', stage: 'interested' },
+  { id: 4, name: "Anna Davis", email: "anna@email.com", phone: "+1 234 567 8904", status: 'new', stage: 'not contacted' },
+  { id: 5, name: "Peter Brown", email: "peter@email.com", phone: "+1 234 567 8905", status: 'converted', stage: 'closed' },
+];
+
+const sequencesEs = [
   { id: 1, name: "Bienvenida", steps: 3, leads: 12, active: true },
   { id: 2, name: "Seguimiento", steps: 5, leads: 8, active: true },
   { id: 3, name: "Clausura", steps: 4, leads: 3, active: false },
 ];
 
+const sequencesEn = [
+  { id: 1, name: "Welcome", steps: 3, leads: 12, active: true },
+  { id: 2, name: "Follow-up", steps: 5, leads: 8, active: true },
+  { id: 3, name: "Close", steps: 4, leads: 3, active: false },
+];
+
 export default function LeadsAutomationPreview() {
   const containerRef = useRef<HTMLElement>(null);
-  const [leads, setLeads] = useState<Lead[]>(sampleLeads);
+  const { language } = useLanguage();
+  const [leads, setLeads] = useState<Lead[]>(language === "es" ? sampleLeadsEs : sampleLeadsEn);
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
   const [selectedSequence, setSelectedSequence] = useState<number | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
+
+  const sequences = language === "es" ? sequencesEs : sequencesEn;
   const [currentStep, setCurrentStep] = useState(0);
 
   useGSAP(() => {
@@ -117,17 +135,21 @@ export default function LeadsAutomationPreview() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="leads-title text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-4">
-            Gestión de Leads con Secuencias Automatizadas
+            {language === "es" ? "Gestión de Leads con Secuencias Automatizadas" : "Lead Management with Automated Sequences"}
           </h2>
           <p className="text-[var(--text-secondary)]">
-            No pierdas más clientes por falta de seguimiento. Automatiza tu embudo de ventas.
+            {language === "es" 
+              ? "No pierdas más clientes por falta de seguimiento. Automatiza tu embudo de ventas."
+              : "Don't lose more customers due to lack of follow-up. Automate your sales funnel."}
           </p>
         </div>
 
         <div className="leads-content grid lg:grid-cols-3 gap-6">
           {/* LEFT - Leads List */}
           <div className="lg:col-span-1 bg-[var(--bg-tertiary)] border border-[var(--accent-border)] rounded-2xl p-4">
-            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-4">📋 Lista de Leads</h3>
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-4">
+              {language === "es" ? "📋 Lista de Leads" : "📋 Lead List"}
+            </h3>
             <div className="space-y-2 max-h-[350px] overflow-y-auto">
               {leads.map((lead) => (
                 <button

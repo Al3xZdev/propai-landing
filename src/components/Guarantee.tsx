@@ -3,9 +3,11 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Guarantee() {
   const containerRef = useRef<HTMLElement>(null);
+  const { language } = useLanguage();
 
   useGSAP(() => {
     const tl = gsap.timeline();
@@ -71,40 +73,41 @@ export default function Guarantee() {
         <div className="mb-8">
           <div className="guarantee-icon text-7xl mb-4">🛡️</div>
           <h2 className="guarantee-title text-4xl font-bold text-white mb-4">
-            Garantía de Satisfacción
+            {language === "es" ? "Garantía de Satisfacción" : "Satisfaction Guarantee"}
           </h2>
         </div>
 
         <div className="guarantee-box bg-[var(--bg-secondary)] border border-[var(--cyan)]/30 rounded-2xl p-8 mb-8 backdrop-blur-sm">
           <h3 className="text-2xl font-bold text-white mb-4">
-            30 Días de Garantía
+            {language === "es" ? "30 Días de Garantía" : "30-Day Guarantee"}
           </h3>
           <p className="text-lg text-[var(--text-secondary)]">
-            Si en los primeros 30 días no estás satisfecho con los resultados,
-            devolvemos tu dinero. Sin preguntas, sin complicaciones.
+            {language === "es" 
+              ? "Si en los primeros 30 días no estás satisfecho con los resultados, devolvemos tu dinero. Sin preguntas, sin complicaciones."
+              : "If you're not satisfied with the results in the first 30 days, we refund your money. No questions, no complications."}
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           <div className="guarantee-feature bg-[var(--bg-tertiary)] border border-[var(--accent-border)] rounded-xl p-6 hover:border-[var(--cyan)]/50 transition-colors">
             <div className="text-4xl mb-3">🔒</div>
-            <p className="text-white font-bold">Datos Seguros</p>
+            <p className="text-white font-bold">{language === "es" ? "Datos Seguros" : "Secure Data"}</p>
             <p className="text-[var(--text-muted)] text-sm mt-1">
-              Encriptación SSL y GDPR compliant
+              {language === "es" ? "Encriptación SSL y GDPR compliant" : "SSL encryption and GDPR compliant"}
             </p>
           </div>
           <div className="guarantee-feature bg-[var(--bg-tertiary)] border border-[var(--accent-border)] rounded-xl p-6 hover:border-[var(--cyan)]/50 transition-colors">
             <div className="text-4xl mb-3">⚡</div>
             <p className="text-white font-bold">99.9% Uptime</p>
             <p className="text-[var(--text-muted)] text-sm mt-1">
-              Garantizado con redundancia
+              {language === "es" ? "Garantizado con redundancia" : "Guaranteed with redundancy"}
             </p>
           </div>
           <div className="guarantee-feature bg-[var(--bg-tertiary)] border border-[var(--accent-border)] rounded-xl p-6 hover:border-[var(--cyan)]/50 transition-colors">
             <div className="text-4xl mb-3">🔄</div>
-            <p className="text-white font-bold">Backups Diarios</p>
+            <p className="text-white font-bold">{language === "es" ? "Backups Diarios" : "Daily Backups"}</p>
             <p className="text-[var(--text-muted)] text-sm mt-1">
-              Tus datos siempre seguros
+              {language === "es" ? "Tus datos siempre seguros" : "Your data always safe"}
             </p>
           </div>
         </div>
@@ -113,7 +116,7 @@ export default function Guarantee() {
           onClick={scrollToContact}
           className="guarantee-cta inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white rounded-full font-semibold text-lg hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
         >
-          📅 Agendar Demo sin Compromiso
+          📅 {language === "es" ? "Agendar Demo sin Compromiso" : "Schedule Demo with No Commitment"}
         </button>
       </div>
     </section>
