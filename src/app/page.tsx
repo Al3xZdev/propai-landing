@@ -8,6 +8,7 @@ import Problem from "@/components/Problem";
 import Solution from "@/components/Solution";
 import DemoPreview from "@/components/DemoPreview";
 import LeadsAutomationPreview from "@/components/LeadsAutomationPreview";
+import UnifiedInbox from "@/components/UnifiedInbox";
 import Comparison from "@/components/Comparison";
 import CaseStudy from "@/components/CaseStudy";
 import Competitors from "@/components/Competitors";
@@ -64,7 +65,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["hero", "features", "problem", "solution", "demo", "leads", "comparison", "casestudy", "competitors", "faq", "pricing", "contact"];
+      const sections = ["hero", "features", "problem", "solution", "demo", "leads", "inbox", "comparison", "casestudy", "competitors", "faq", "pricing", "contact"];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -126,6 +127,10 @@ export default function Home() {
 
         <section id="leads">
           <LeadsAutomationPreview />
+        </section>
+
+        <section id="inbox">
+          <UnifiedInbox />
         </section>
 
         <section id="comparison">
